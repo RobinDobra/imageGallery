@@ -11,9 +11,6 @@ import javax.persistence.GenerationType
 
 import javax.persistence.GeneratedValue
 
-
-
-
 @Entity
 class Article(
 		var title: String,

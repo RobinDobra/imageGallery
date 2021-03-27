@@ -269,7 +269,7 @@
 
         <th:block th:each="imagePath : ${imagePaths}">
             <div class="cbp-item product" >
-                <a class="cbp-caption" href="./portfolio-single-page-grid.html">
+                <a class="cbp-caption" th:href="@{/${imagePath} (imagePath=${imagePath})}">
                     <div class="overflow-hidden rounded-lg">
                         <div class="cbp-caption-defaultWrap">
                             <img class="rounded-lg" th:src="@{thumbnails/{imagePath}(imagePath=${imagePath})}" alt="Image Description">

@@ -1,4 +1,5 @@
 package com.example.blog
+
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -26,22 +27,26 @@ class WebscraperTagsFromPicJumbo {
     private var linksToPhotoPreviews: MutableList<String> = mutableListOf()
     private var tags: MutableList<String> = mutableListOf()
 
+    val tagManagerList: MutableList<MutableList<String>> = mutableListOf()
+
     fun init() {
 
 //        getLinksFromStartingPageToCategories()
-//        println("3) --------------------------------------------")
+////        println("3) --------------------------------------------")
 //        getLinksFromCategoriesToPhotos()
-//        println("4) --------------------------------------------")
-        getTagsFromPhotos()
+////        println("4) --------------------------------------------")
+//        getTagsFromPhotos()
 //        tags.forEach(System.out::println)
-
+//
 //        removeDuplicatesFromTagsFile()
-//        fileRowsToNameAndTagsSet()
+        fileToPojos()
+        print("done")
 
 
     }
 
     private fun getLinksFromStartingPageToCategories() {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
         val url = "https://picjumbo.com/";
         val startString = "https://picjumbo.com/free-stock-photos/"
 
@@ -50,9 +55,10 @@ class WebscraperTagsFromPicJumbo {
     }
 
     private fun givenTheUrlAndStartStringReturnListWithLinks(url: String, startString: String): MutableList<String> {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val links: MutableList<String> = mutableListOf()
         for (anchor in givenTheUrlGetAnchors(url)) {
-//            println("1) I am doing Something")
             val link = anchor.attr("abs:href")
             if (link.startsWith(startString)) {
                 links.add(link)
@@ -62,12 +68,21 @@ class WebscraperTagsFromPicJumbo {
     }
 
     private fun givenTheUrlGetAnchors(url: String): Elements {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
         val doc = Jsoup.connect(url).timeout(15000).get()
         return doc.select("a")
     }
 
+    private fun givenTheUrlGetItempropAnchor(url: String): Elements {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
+        val doc = Jsoup.connect(url).timeout(15000).get()
+        return doc.select("span a[title]")
+    }
 
     private fun getLinksFromCategoriesToPhotos() {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val startString = "https://picjumbo.com/";
 
         // We are deleting any duplicate entries from our list by creating a set and writing its values to the list
@@ -76,29 +91,38 @@ class WebscraperTagsFromPicJumbo {
         linksToCategories.addAll(set)
         linksToCategories.sort()
 
-        var nextPaginationUrl: String? = "abc"
         for (urlToCategory in linksToCategories) {
             println("##################################################")
             println("Category: $urlToCategory")
-//          if (urlToCategory.contains("abstract")) { //deleteLater
-            getCategoryPagination(urlToCategory, startString)
-//                }
+            if (urlToCategory.contains("abstract")) { //deleteLater
+                getCategoryPagination(urlToCategory, startString)
+            }
 
         }
     }
 
 
     private fun getTagsFromPhotos() {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val url = "https://picjumbo.com/";
         val startString = "https://picjumbo.com/free-photos/"
 
-        val links: MutableList<String> = mutableListOf()
         val tagsFile = initialiseFile()
 
 
         for (photoPreview in linksToPhotoPreviews) {
             println("7) PhotoPreview Link: $photoPreview")
-            var tagsForPhotoPreview: MutableList<String> = givenTheUrlAndStartStringReturnListWithLinks(photoPreview, startString)
+
+//            var tagsForPhotoPreview: MutableList<String> = givenTheUrlAndStartStringReturnListWithLinks(photoPreview, startString)
+            var tagsForPhotoPreview: MutableList<String> = mutableListOf()
+
+            for (anchor in givenTheUrlGetItempropAnchor(photoPreview)) {
+                val link = anchor.attr("abs:href")
+                if (link.startsWith(startString)) {
+                    tagsForPhotoPreview.add(link)
+                }
+            }
 
             val photoPreviewRawName = photoPreview.substring(photoPreview.substring(0, photoPreview.lastIndexOf("/")).lastIndexOf("/") + 1, photoPreview.length - 1)
             tagsForPhotoPreview = urlToRawName(tagsForPhotoPreview)
@@ -111,6 +135,8 @@ class WebscraperTagsFromPicJumbo {
 
 
     private fun givenTheUrlAndStartStringGetTagsPerCategory(url: String, startString: String) {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val tagsFile = initialiseFile()
 
 
@@ -128,6 +154,8 @@ class WebscraperTagsFromPicJumbo {
     }
 
     private fun initialiseFile(): File {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val fileName = File(file)
         val isNewFileThanCreate: Boolean = fileName.createNewFile()
 
@@ -140,6 +168,8 @@ class WebscraperTagsFromPicJumbo {
     }
 
     private fun urlToRawName(tagsForPhotoPreview: MutableList<String>): MutableList<String> {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         val tagNamesOnly: MutableList<String> = mutableListOf()
         var previousTag = ""
         var currentTag = ""
@@ -152,6 +182,8 @@ class WebscraperTagsFromPicJumbo {
 
     // ToDo: I know the first landing page of each category is not saved, but that is good because nobody will recognize the images from the second page onwards
     private fun getCategoryPagination(urlToCategory: String, startString: String): String? {
+        println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+
         var url: String? = urlToCategory
         while (url != null) {
             try {
@@ -176,6 +208,7 @@ class WebscraperTagsFromPicJumbo {
         return url
     }
 
+
     private fun removeDuplicatesFromTagsFile() {
         var fileName = file;
         val sc = Scanner(File(fileName))
@@ -198,10 +231,9 @@ class WebscraperTagsFromPicJumbo {
         println("Contents added............")
     }
 
-    private fun fileRowsToNameAndTagsSet() {
+    private fun fileToPojos() {
         var fileName = fileMinimized;
         val sc = Scanner(File(fileName))
-        val result: MutableList<MutableList<String>> = mutableListOf()
 
         // for every row
         while (sc.hasNextLine()) {
@@ -209,19 +241,14 @@ class WebscraperTagsFromPicJumbo {
             val openingSquareBracketIndex = lineFromFile.indexOf("[") + 1
             val closingSquareBracketIndex = lineFromFile.indexOf("]")
             if (openingSquareBracketIndex > -1 && closingSquareBracketIndex > -1) {
-
                 // imageName per Row (String)
                 val imageNameFromFile = lineFromFile.substring(0, lineFromFile.indexOf(" "))
                 val imageTagsFromFile = lineFromFile.substring(openingSquareBracketIndex, closingSquareBracketIndex)
-
                 // imageTags per Row (arraylist)
-                val imageTagsFromFileList : MutableList<String> = imageTagsFromFile.split(", ").toMutableList()
-
+                val imageTagsFromFileList: MutableList<String> = imageTagsFromFile.split(", ").toMutableList()
                 // imageName per Row + imageTags per Row (arraylist)
                 val fileNameAndTagsAsList: MutableList<String> = mutableListOf(imageNameFromFile)
-
                 var previousTag = ""
-
 
                 with(imageTagsFromFileList.listIterator()) {
                     forEach {
@@ -232,20 +259,8 @@ class WebscraperTagsFromPicJumbo {
                     }
                 }
 
-
-
-//                for (currentTag in imageTagsFromFileList) {
-//                    // We are deleting out of order tags which we wronly parsed from the website
-//                    if (currentTag < previousTag) {
-//                        println("$currentTag is smaller than $previousTag")
-//                        imageTagsFromFileList.remove(currentTag)
-//                    }
-//
-//                    previousTag = currentTag
-//                }
-
                 fileNameAndTagsAsList.addAll(imageTagsFromFileList)
-                result.add(fileNameAndTagsAsList)
+                tagManagerList.add(fileNameAndTagsAsList)
             }
             println("test");
         }

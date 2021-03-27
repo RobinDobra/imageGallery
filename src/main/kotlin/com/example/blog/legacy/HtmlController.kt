@@ -10,14 +10,15 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.server.ResponseStatusException
 
+@RequestMapping(path= ["/legacy"])
 @Controller
 class HtmlController(private val repository: ArticleRepository,
-					 private val properties: BlogProperties
+					 private val properties: ImagegalleryProperties
 ) {
 
-	@GetMapping("/")
 	fun blog(model: Model): String {
 		model["title"] = properties.title
 		model["banner"] = properties.banner
