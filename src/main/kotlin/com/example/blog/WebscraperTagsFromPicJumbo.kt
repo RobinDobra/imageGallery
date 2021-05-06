@@ -39,7 +39,7 @@ class WebscraperTagsFromPicJumbo {
 //        tags.forEach(System.out::println)
 //
 //        removeDuplicatesFromTagsFile()
-        fileToPojos()
+//        fileToPojos()
         print("done")
 
 
@@ -101,7 +101,6 @@ class WebscraperTagsFromPicJumbo {
         }
     }
 
-
     private fun getTagsFromPhotos() {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
 
@@ -132,7 +131,6 @@ class WebscraperTagsFromPicJumbo {
             tagsFile.appendText("${tagsForPhotoPreview}\n\n")
         }
     }
-
 
     private fun givenTheUrlAndStartStringGetTagsPerCategory(url: String, startString: String) {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
@@ -227,7 +225,9 @@ class WebscraperTagsFromPicJumbo {
                 )
             }
         }
-        writer.flush();
+        writer.flush()
+        writer.close()
+        sc.close()
         println("Contents added............")
     }
 
@@ -262,8 +262,10 @@ class WebscraperTagsFromPicJumbo {
                 fileNameAndTagsAsList.addAll(imageTagsFromFileList)
                 tagManagerList.add(fileNameAndTagsAsList)
             }
-            println("test");
+            println("test")
         }
-        println("test");
+        println("test")
+        sc.close()
     }
+
 }

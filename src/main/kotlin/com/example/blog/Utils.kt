@@ -26,4 +26,20 @@ class Utils {
         return projectDirAbsolutePath.parent.resolve("out_of_project_resources");
     }
 
+    fun tagsOnFrontPags(): Array<String> {
+        return arrayOf(
+            "animals",
+            "blue-water",
+            "business",
+            "close-up",
+            "fashion",
+            "girl",
+            "health",
+            "nature",
+            "spring",
+            "wallpapers",
+            "woman"
+        )
+    }
+
 }

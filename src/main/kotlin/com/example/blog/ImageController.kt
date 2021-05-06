@@ -19,6 +19,7 @@ class ImageController {
         val utils = Utils()
         val imagePaths: List<String> = utils.readFileNamesFromResources()
         println(imagePaths)
+        model["tagsOnFrontPage"] = utils.tagsOnFrontPags()
         model["imagePaths"] = imagePaths
 
         return "portfolio-own"
