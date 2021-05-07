@@ -39,7 +39,7 @@ class WebscraperTagsFromPicJumbo {
 //        tags.forEach(System.out::println)
 //
 //        removeDuplicatesFromTagsFile()
-//        fileToPojos()
+        fileToPojos()
         print("done")
 
 
@@ -231,7 +231,7 @@ class WebscraperTagsFromPicJumbo {
         println("Contents added............")
     }
 
-    private fun fileToPojos() {
+    public fun fileToPojos(): MutableList<MutableList<String>> {
         var fileName = fileMinimized;
         val sc = Scanner(File(fileName))
 
@@ -266,6 +266,7 @@ class WebscraperTagsFromPicJumbo {
         }
         println("test")
         sc.close()
+        return  tagManagerList
     }
 
 }

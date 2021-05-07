@@ -1,8 +1,10 @@
 package com.example.blog
 
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.*
 import java.util.stream.Collectors
 
 class Utils {
@@ -26,20 +28,7 @@ class Utils {
         return projectDirAbsolutePath.parent.resolve("out_of_project_resources");
     }
 
-    fun tagsOnFrontPags(): Array<String> {
-        return arrayOf(
-            "animals",
-            "blue-water",
-            "business",
-            "close-up",
-            "fashion",
-            "girl",
-            "health",
-            "nature",
-            "spring",
-            "wallpapers",
-            "woman"
-        )
-    }
+
+
 
 }

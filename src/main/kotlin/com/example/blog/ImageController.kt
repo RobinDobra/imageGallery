@@ -17,11 +17,11 @@ class ImageController {
     @RequestMapping(path= ["/"])
     fun helloKotlin(model : Model): String {
         val utils = Utils()
-        val imagePaths: List<String> = utils.readFileNamesFromResources()
-        println(imagePaths)
-        model["tagsOnFrontPage"] = utils.tagsOnFrontPags()
-        model["imagePaths"] = imagePaths
-
+        val imageNames: List<String> = utils.readFileNamesFromResources()
+        println(imageNames)
+        model["imageNames"] = imageNames
+        model["testtag"] = "business"
+        model["imageNamesWithTags"] = WebscraperTagsFromPicJumbo().fileToPojos()
         return "portfolio-own"
     }
     @GetMapping("/{imagename}")
@@ -31,13 +31,5 @@ class ImageController {
         model["imagePath"] = imagename
         return "portfolio-own-single"
     }
-//
-//    @GetMapping("/hello")
-//    fun hellooKotlin(model : Model): String {
-//        val imagePaths = readFileNamesFromResources()
-//        println(imagePaths)
-//
-//        model["imagePaths"] = imagePaths
-//        return "portfolio-grid_o"
-//    }
+
 }
