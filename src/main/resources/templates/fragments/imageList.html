@@ -23,19 +23,26 @@
         <!-- End Hero -->
 
 
-            <!-- Filter -->
-            <div id="filterControls" class="text-center mb-5 mb-md-7">
-                <a class="cbp-filter-item cbp-filter-item-active btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter="*">All</a>
-                <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".branding">Branding</a>
-                <th:block th:each="tagOnFrontPage : ${tagsOnFrontPage}">
-                <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".${tagOnFrontPage}" th:text="${tagOnFrontPage}"></a>
-                <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".illustration">Illustration</a>
-                </th:block>
-            </div>
-            <!-- End Filter -->
+        <!-- Filter -->
+        <div id="filterControls" class="text-center mb-5 mb-md-7">
+            <a class="cbp-filter-item cbp-filter-item-active btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter="*">All</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".illustration">Illustration</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".animals">animals</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".business">business</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".fashion">fashion</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".girl">girl</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".health">health</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".nature">nature</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".spring">spring</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".illustration">Illustration</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".wallpapers">wallpapers</a>
+            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".woman">woman</a>
+        </div>
+        <!-- End Filter -->
 
-            <div class="cbp"
-                 data-hs-cbp-options='{
+
+        <div class="cbp"
+             data-hs-cbp-options='{
                  "animationType": "fadeOut",
                  "caption": "zoom",
                  "gapHorizontal": 40,
@@ -49,132 +56,81 @@
                  ]
            }'>
 
+            <!-- test outputs -->
+            <!--            This is an array of arrays. Names and Tags have the same amount of subarrays.
+                            All names Arrays consist of a single element.
+                            A tags subarray can contain any number of tags.
+                            We have to output names[i][0] and tags[i][*]-->
 
-            <th:block th:each="imagePath : ${imagePaths}">
-                <div class="cbp-item product">
-                    <a class="cbp-caption" th:href="@{/${imagePath} (imagePath=${imagePath})}">
-                        <div class="overflow-hidden rounded-lg">
-                            <div class="cbp-caption-defaultWrap">
-                                <img class="rounded-lg" th:src="@{thumbnails/{imagePath}(imagePath=${imagePath})}" alt="Image Description">
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <span class="d-block small text-body font-weight-bold text-cap">Product</span>
-                            <span class="d-block h3 mb-0">Canva Schedule</span>
-                        </div>
-                    </a>
-                </div>
-            </th:block>
+<!--            <table class="table-dark">-->
+<!--                <tr th:each="nameList, iter : ${namesLoL}">-->
+<!--                    <td th:text="${nameList[0]}"></td>-->
+<!--                </tr>-->
 
-            <!-- Item -->
-            <div class="cbp-item product branding">
-                <a class="cbp-caption" href="./portfolio-single-page-grid.html">
+<!--                <tr th:each="tagList, iter : ${tagsLoL}">-->
+<!--                    <th:block th:each="tag : ${tagsLoL[iter.index]}">-->
+<!--                        <td th:text="${tag}"></td>-->
+<!--                    </th:block>-->
+<!--                </tr>-->
+<!--            </table>-->
+
+
+            <!-- own items -->
+            <th:block th:each="tagString, iter : ${tagsLoL}">
+                <div class="cbp-item" th:classappend="${tagString}">
+<!--                <th:block th:each="tag : ${tagsLoL[iter.index]}"><div th:classappend="${tag}"></div></th:block>-->
+                <a class="cbp-caption" th:href="@{{imageName} (imageName=${namesLoL[iter.index][0]})}">
+
                     <div class="overflow-hidden rounded-lg">
                         <div class="cbp-caption-defaultWrap">
-                            <img class="rounded-lg" src="../img/400x500/img21.jpg" alt="Image Description">
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <span class="d-block small text-body font-weight-bold text-cap">Branding</span>
-                        <span class="d-block h3 mb-0">Larq</span>
-                    </div>
-                </a>
-            </div>
-            <!-- End Item -->
-
-            <!-- Item -->
-            <div class="cbp-item product illustration">
-                <a class="cbp-caption" href="./portfolio-single-page-grid.html">
-                    <div class="overflow-hidden rounded-lg">
-                        <div class="cbp-caption-defaultWrap">
-                            <img class="rounded-lg" src="../img/400x500/img24.jpg" alt="Image Description">
+                            <img class="rounded-lg" th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${namesLoL[iter.index][0]})}" alt="Image Description">
                         </div>
                     </div>
                     <div class="p-4">
                         <span class="d-block small text-body font-weight-bold text-cap">Product</span>
-                        <span class="d-block h3 mb-0">Zibbet</span>
+                        <span class="d-block h3 mb-0">Canva Schedule</span>
                     </div>
                 </a>
             </div>
-            <!-- End Item -->
+        </th:block>
 
-
-
+        <!-- Item -->
+        <div class="cbp-item product branding spring">
+            <a class="cbp-caption" href="./portfolio-single-page-grid.html">
+                <div class="overflow-hidden rounded-lg">
+                    <div class="cbp-caption-defaultWrap">
+                        <img class="rounded-lg" src="../img/400x500/img21.jpg" alt="Image Description">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <span class="d-block small text-body font-weight-bold text-cap">Branding</span>
+                    <span class="d-block h3 mb-0">Larq</span>
+                </div>
+            </a>
         </div>
+        <!-- End Item -->
+
+        <!-- Item -->
+        <div class="cbp-item product illustration spring">
+            <a class="cbp-caption" href="./portfolio-single-page-grid.html">
+                <div class="overflow-hidden rounded-lg">
+                    <div class="cbp-caption-defaultWrap">
+                        <img class="rounded-lg" src="../img/400x500/img24.jpg" alt="Image Description">
+                    </div>
+                </div>
+                <div class="p-4">
+                    <span class="d-block small text-body font-weight-bold text-cap">Product</span>
+                    <span class="d-block h3 mb-0">Zibbet</span>
+                </div>
+            </a>
+        </div>
+        <!-- End Item -->
+
+
+    </div>
     </div>
 </main>
 
-<!-- neu -->
-<!-- Gallery Section -->
-<div class="container position-relative">
-    <div id="fancyboxGallery" class="js-fancybox"
-         data-hs-fancybox-options='{
-         "selector": "#fancyboxGallery .js-fancybox-item"
-       }'>
-        <div class="rounded-lg overflow-hidden">
-            <div class="row mx-n1">
-                <div class="col-md-8 px-1">
-                    <!-- Gallery -->
-                    <a class="js-fancybox-item d-block" href="javascript:;"
-                       data-src="../assets/img/1920x1080/img27.jpg"
-                       data-caption="Front in frames - image #01">
-                        <img class="img-fluid w-100" src="../assets/img/900x455/img1.jpg" alt="Image Description">
-
-                        <div class="position-absolute bottom-0 right-0 pb-3 pr-3">
-              <span class="d-md-none btn btn-sm btn-light">
-                <i class="fas fa-expand mr-2"></i> View Photos
-              </span>
-                        </div>
-                    </a>
-                    <!-- End Gallery -->
-                </div>
-
-                <div class="col-md-4 d-none d-md-inline-block px-1">
-                    <!-- Gallery -->
-                    <a class="js-fancybox-item d-block mb-2" href="javascript:;"
-                       data-src="../assets/img/1920x1080/img11.jpg"
-                       data-caption="Front in frames - image #04">
-                        <img class="img-fluid w-100" src="../assets/img/450x225/img1.jpg" alt="Image Description">
-                    </a>
-                    <!-- End Gallery -->
-
-                    <!-- Gallery -->
-                    <a class="js-fancybox-item d-block" href="javascript:;"
-                       data-src="../assets/img/1920x1080/img14.jpg"
-                       data-caption="Front in frames - image #04">
-                        <img class="img-fluid w-100" src="../assets/img/450x225/img2.jpg" alt="Image Description">
-
-                        <div class="position-absolute bottom-0 right-0 pb-3 pr-3">
-              <span class="d-none d-md-inline-block btn btn-sm btn-light">
-                <i class="fas fa-expand mr-2"></i> View Photos
-              </span>
-                        </div>
-                    </a>
-                    <!-- End Gallery -->
-
-                    <img class="js-fancybox-item d-none" alt="Image Description"
-                         data-src="../assets/img/1920x1080/img24.jpg"
-                         data-caption="Front in frames - image #05">
-                    <img class="js-fancybox-item d-none" alt="Image Description"
-                         data-src="../assets/img/1920x1080/img20.jpg"
-                         data-caption="Front in frames - image #06">
-                </div>
-            </div>
-            <!-- End Row -->
-        </div>
-
-        <div class="d-flex justify-content-end mt-2">
-            <span class="small text-dark font-weight-bold">Published:</span>
-            <span class="small ml-1">December 27, 2018</span>
-        </div>
-    </div>
-</div>
-<!-- End Gallery Section -->
-
-
-<!---->
-
-
-
+<div th:insert="fragments/javascriptImports"></div>
 </body>
 </html>

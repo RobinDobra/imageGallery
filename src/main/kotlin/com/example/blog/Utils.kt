@@ -9,9 +9,9 @@ import java.util.stream.Collectors
 
 class Utils {
 
-    fun readFileNamesFromResources(): List<String> {
+    fun readFileNamesFromOutOfProjectResources(folder: String): List<String> {
         val outOfProjectResourcesPath = getOutOfProjectResourcesPath()
-        val imagesDirectory = outOfProjectResourcesPath?.resolve("original_images");
+        val imagesDirectory = outOfProjectResourcesPath?.resolve(folder);
 
         Files.walk(Paths.get(imagesDirectory.toString()), 2)
             .use { stream ->

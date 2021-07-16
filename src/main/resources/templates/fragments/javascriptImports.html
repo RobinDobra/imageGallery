@@ -3,6 +3,7 @@
 <head>
 </head>
 <body>
+
 <!-- JS Global Compulsory  -->
 <script src="../vendor/jquery/dist/jquery.min.js"></script>
 <script src="../vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
@@ -16,7 +17,7 @@
 <script src="../vendor/hs-show-animation/dist/hs-show-animation.min.js"></script>
 <script src="../vendor/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="../vendor/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-<script src="../vendor/hs-sticky-block/dist/hs-sticky-block.min.js"></script>
+<script src="../vendor/typed.js/lib/typed.min.js"></script>
 
 <!-- JS Front -->
 <script src="../js/theme.min.js"></script>
@@ -67,17 +68,16 @@
         // =======================================================
         $('.cbp').each(function () {
             var cbp = $.HSCore.components.HSCubeportfolio.init($(this), {
+                layoutMode: 'grid',
+                filters: '#filterControls',
                 displayTypeSpeed: 0
             });
         });
 
-        $('.cbp').on('initComplete.cbp', function() {
-            // INITIALIZATION OF STICKY BLOCKS
-            // =======================================================
-            $('.js-sticky-block').each(function () {
-                var stickyBlock = new HSStickyBlock($(this)).init();
-            });
-        });
+
+        // INITIALIZATION OF TEXT ANIMATION (TYPING)
+        // =======================================================
+        var typed = $.HSCore.components.HSTyped.init(".js-text-animation");
 
 
         // INITIALIZATION OF GO TO
@@ -92,5 +92,7 @@
 <script>
     if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="../vendor/babel-polyfill/dist/polyfill.js"><\/script>');
 </script>
+
+
 </body>
 </html>

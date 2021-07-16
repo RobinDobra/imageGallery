@@ -1,4 +1,16 @@
-1) Tags Many To Many machen
+1) Meine TagsLoL muss mehrere Listen mit jeweils einen concatinierten TagStreing haben. Bisher ist es nur ein zusammegepappter String pber alle Bilder
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+0) Bilder mit IrfanView zu Thumbnails konvertieren
+1) Ich habe jetzt die Liste mit allen Namen und allen Tags von den ImageController an die ImageList übergeben. Jetzt muss ich in der Imagelist über die List<List<Strings> gehen und für jedes Bild die Tags raussuchen
 2) Shopping Funktion einbauen, damit Bilder auch gekauft werden können
 3)
 4) Quelle der Bilder mit speichern

@@ -27,7 +27,9 @@ class WebscraperTagsFromPicJumbo {
     private var linksToPhotoPreviews: MutableList<String> = mutableListOf()
     private var tags: MutableList<String> = mutableListOf()
 
-    val tagManagerList: MutableList<MutableList<String>> = mutableListOf()
+    private val finalNameList: MutableList<MutableList<String>> = mutableListOf()
+    private val finalTagList: MutableList<MutableList<String>> = mutableListOf()
+
 
     fun init() {
 
@@ -231,7 +233,7 @@ class WebscraperTagsFromPicJumbo {
         println("Contents added............")
     }
 
-    public fun fileToPojos(): MutableList<MutableList<String>> {
+    public fun fileToPojos(): Pair<MutableList<MutableList<String>>, MutableList<MutableList<String>>> {
         var fileName = fileMinimized;
         val sc = Scanner(File(fileName))
 
@@ -247,7 +249,7 @@ class WebscraperTagsFromPicJumbo {
                 // imageTags per Row (arraylist)
                 val imageTagsFromFileList: MutableList<String> = imageTagsFromFile.split(", ").toMutableList()
                 // imageName per Row + imageTags per Row (arraylist)
-                val fileNameAndTagsAsList: MutableList<String> = mutableListOf(imageNameFromFile)
+//                val fileNameAndTagsAsList: MutableList<String> = mutableListOf(imageNameFromFile)
                 var previousTag = ""
 
                 with(imageTagsFromFileList.listIterator()) {
@@ -259,14 +261,18 @@ class WebscraperTagsFromPicJumbo {
                     }
                 }
 
-                fileNameAndTagsAsList.addAll(imageTagsFromFileList)
-                tagManagerList.add(fileNameAndTagsAsList)
+                finalNameList.add(mutableListOf(imageNameFromFile))
+                finalTagList.add(imageTagsFromFileList)
+//                fileNameAndTagsAsList.addAll(imageTagsFromFileList)
+//                tagManagerList.add(fileNameAndTagsAsList)
             }
-            println("test")
+//            println("test")
         }
-        println("test")
+//        println("test")
         sc.close()
-        return  tagManagerList
+//        return  tagManagerList
+        return Pair(finalNameList, finalTagList)
     }
+
 
 }
