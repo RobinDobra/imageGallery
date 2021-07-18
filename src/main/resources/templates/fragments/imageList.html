@@ -56,81 +56,123 @@
                  ]
            }'>
 
-            <!-- test outputs -->
-            <!--            This is an array of arrays. Names and Tags have the same amount of subarrays.
-                            All names Arrays consist of a single element.
-                            A tags subarray can contain any number of tags.
-                            We have to output names[i][0] and tags[i][*]-->
-
-<!--            <table class="table-dark">-->
-<!--                <tr th:each="nameList, iter : ${namesLoL}">-->
-<!--                    <td th:text="${nameList[0]}"></td>-->
-<!--                </tr>-->
-
-<!--                <tr th:each="tagList, iter : ${tagsLoL}">-->
-<!--                    <th:block th:each="tag : ${tagsLoL[iter.index]}">-->
-<!--                        <td th:text="${tag}"></td>-->
-<!--                    </th:block>-->
-<!--                </tr>-->
-<!--            </table>-->
-
-
             <!-- own items -->
-            <th:block th:each="tagString, iter : ${tagsLoL}">
-                <div class="cbp-item" th:classappend="${tagString}">
-<!--                <th:block th:each="tag : ${tagsLoL[iter.index]}"><div th:classappend="${tag}"></div></th:block>-->
-                <a class="cbp-caption" th:href="@{{imageName} (imageName=${namesLoL[iter.index][0]})}">
+            <!--            <th:block th:each="tagString, iter : ${tagsLoL}">-->
+            <!--                <div class="cbp-item" th:classappend="${tagString}">-->
+            <!--                <a class="cbp-caption" th:href="@{{imageName} (imageName=${namesLoL[iter.index][0]})}">-->
 
+            <!--                    <div class="overflow-hidden rounded-lg">-->
+            <!--                        <div class="cbp-caption-defaultWrap">-->
+            <!--                            <img class="rounded-lg" th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${namesLoL[iter.index][0]})}" alt="Image Description">-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                    <div class="p-4">-->
+            <!--                        <span class="d-block small text-body font-weight-bold text-cap">Product</span>-->
+            <!--                        <span class="d-block h3 mb-0">Canva Schedule</span>-->
+            <!--                    </div>-->
+            <!--                </a>-->
+            <!--            </div>-->
+            <!--        </th:block>-->
+
+            <!-- Item -->
+            <div class="cbp-item product branding spring">
+                <a class="cbp-caption">
                     <div class="overflow-hidden rounded-lg">
                         <div class="cbp-caption-defaultWrap">
-                            <img class="rounded-lg" th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${namesLoL[iter.index][0]})}" alt="Image Description">
+                            <img class="rounded-lg" data-toggle="modal" data-target="#myModal" src="../img/400x500/img21.jpg" alt="Image Description">
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="d-block small text-body font-weight-bold text-cap">Branding</span>
+                        <span class="d-block h3 mb-0">Larq</span>
+                    </div>
+                </a>
+            </div>
+            <!-- End Item -->
+
+
+            <!-- Item -->
+            <div class="cbp-item product illustration spring">
+                <a class="cbp-caption" href="./portfolio-single-page-grid.html">
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="cbp-caption-defaultWrap">
+                            <img class="rounded-lg" src="../img/400x500/img24.jpg" alt="Image Description">
                         </div>
                     </div>
                     <div class="p-4">
                         <span class="d-block small text-body font-weight-bold text-cap">Product</span>
-                        <span class="d-block h3 mb-0">Canva Schedule</span>
+                        <span class="d-block h3 mb-0">Zibbet</span>
                     </div>
                 </a>
             </div>
-        </th:block>
+            <!-- End Item -->
 
-        <!-- Item -->
-        <div class="cbp-item product branding spring">
-            <a class="cbp-caption" href="./portfolio-single-page-grid.html">
-                <div class="overflow-hidden rounded-lg">
-                    <div class="cbp-caption-defaultWrap">
-                        <img class="rounded-lg" src="../img/400x500/img21.jpg" alt="Image Description">
-                    </div>
-                </div>
-                <div class="p-4">
-                    <span class="d-block small text-body font-weight-bold text-cap">Branding</span>
-                    <span class="d-block h3 mb-0">Larq</span>
-                </div>
-            </a>
         </div>
-        <!-- End Item -->
 
-        <!-- Item -->
-        <div class="cbp-item product illustration spring">
-            <a class="cbp-caption" href="./portfolio-single-page-grid.html">
-                <div class="overflow-hidden rounded-lg">
-                    <div class="cbp-caption-defaultWrap">
-                        <img class="rounded-lg" src="../img/400x500/img24.jpg" alt="Image Description">
+        <!-- Edit Card Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editCardModalTitle" >
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header" >
+<!--                        <h4 id="editCardModalTitle" class="modal-title">Edit card</h4>-->
+                        <div class="modal-close">
+                            <button type="button" class="btn btn-icon btn-xs btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
+                                <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor"
+                                          d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+                    <!-- End Header -->
+                    <img src="../images/Abstract Sunset Girl.jpg" class="img-responsive">
+                    <!-- Body -->
+                    <div class="modal-body">
+
+                    </div>
+                    <!-- End Body -->
+                    <div class="modal-footer">
+                        <button type="button" id="modal-download" class="btn btn-primary block">Save changes</button>
+                    </div>
+
                 </div>
-                <div class="p-4">
-                    <span class="d-block small text-body font-weight-bold text-cap">Product</span>
-                    <span class="d-block h3 mb-0">Zibbet</span>
-                </div>
-            </a>
+            </div>
         </div>
-        <!-- End Item -->
+        <!-- End Edit Card Modal -->
+    </div>
 
 
-    </div>
-    </div>
 </main>
 
+<link rel="stylesheet" href="../css/theme.min.css">
 <div th:insert="fragments/javascriptImports"></div>
+<!-- JS Implementing Plugins -->
+<script src="./node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+
+<!-- JS Front -->
+<script src="./assets/js/hs.mask.js"></script>
+
+<style>
+    .modal-dialog.modal-dialog-centered {
+        max-width: 60%;
+        max-height: 60%;
+    }
+
+    #modal-download {
+        width: 100%
+    }
+</style>
+
+<!-- JS Plugins Init. -->
+<script>
+    $(document).on('ready', function () {
+        // INITIALIZATION OF MASKED INPUT
+        // =======================================================
+        $('.js-masked-input').each(function () {
+            var mask = $.HSCore.components.HSMask.init($(this));
+        });
+    });
+</script>
 </body>
 </html>
