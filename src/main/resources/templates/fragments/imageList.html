@@ -98,7 +98,7 @@
                 <a class="cbp-caption">
                     <div class="overflow-hidden rounded-lg">
                         <div class="cbp-caption-defaultWrap">
-                            <a data-imagename="ISBN" title="Add this item" class="open-ShowImageModal" href="#imageModalId">
+                            <a data-imagename="img1.jpg" title="Add this item" class="open-ShowImageModal" href="#imageModalId">
                                 <img class="rounded-lg" src="../img/400x500/img24.jpg" alt="Image Description">
                             </a>
                         </div>
@@ -153,7 +153,8 @@
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                <input type="text" name="abc" id="imagename" value=""/>
+                <input type="text" name="abc"  value=""/>
+                <img src="" alt="" id="imagename">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -176,7 +177,9 @@
         var _self = $(this);
 
         var imagename = _self.data('imagename');
-        $("#imagename").val(imagename);
+        // $("#imagename").val("../images/" + imagename);
+        document.getElementById("imagename").src = "../img/750x750/" + imagename;
+        // $("#imagename").attr(src, "../images" + imagename);
 
         $(_self.attr('href')).modal('show');
     });
