@@ -3,22 +3,10 @@ package com.example.blog
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import org.springframework.core.codec.Hints.merge
 import java.io.File
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.io.FileReader
-
-import java.io.BufferedReader
 import java.io.FileWriter
-
-import java.io.BufferedWriter
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
+import java.io.IOException
 import java.util.*
-import java.util.HashSet
-import java.util.ArrayList
 
 class WebscraperTagsFromPicJumbo {
     private var file = "tags.txt";
@@ -63,7 +51,7 @@ class WebscraperTagsFromPicJumbo {
         for (anchor in givenTheUrlGetAnchors(url)) {
             val link = anchor.attr("abs:href")
             if (link.startsWith(startString)) {
-                links.add(link)
+                links.add(link.replace(" ", "-")) //ToDo: Replace Neu hinzugefügt
             }
         }
         return links;

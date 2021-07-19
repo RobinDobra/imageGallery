@@ -1,4 +1,18 @@
-/*.modal-dialog {*/
-/*    max-width: 80%;*/
-/*    margin: 1.75rem auto;*/
-/*}*/
+.modal-content {
+    background-color: inherit;
+}
+
+@media (min-width: 800px) {
+    .modal-dialog.modal-dialog-centered {
+        max-width: 60%;
+        max-height: 60%;
+    }
+}
+
+.modal-body {
+    padding: 0;
+}
+
+#modal-download {
+    width: 100%
+}
