@@ -1,21 +1,15 @@
 package com.example.blog
 
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
 
-interface ArticleRepository : CrudRepository<Article, Long> {
-	fun findBySlug(slug: String): Article?
-	fun findAllByOrderByAddedAtDesc(): Iterable<Article>
-}
-
-interface UserRepository : CrudRepository<User, Long> {
-	fun findByLogin(login: String): User?
-}
-
-interface ImageRepository : JpaRepository<Image, Long> {
+@Repository
+interface ImageTagRepository : PagingAndSortingRepository<Image, Long> {
 
 	@Query("SELECT i FROM Image i JOIN i.tags t WHERE t = LOWER(:tag)")
-	fun retrieveByTag(@Param("tag") tag: String?): List<Image?>?
+	fun findAllWithTag(@Param("tag") tag: String, pageable: Pageable): Page<Image>
 }

@@ -1,5 +1,6 @@
 package com.example.blog
 
+import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -9,7 +10,7 @@ import java.io.IOException
 import java.util.*
 
 class WebscraperTagsFromPicJumbo {
-    private var file = "tags.txt";
+    private var file = "tags.txt"
     private var fileMinimized = "tagsWithoutDuplicates.txt"
     private var linksToCategories: MutableList<String> = mutableListOf()
     private var linksToPhotoPreviews: MutableList<String> = mutableListOf()
@@ -21,23 +22,23 @@ class WebscraperTagsFromPicJumbo {
 
     fun init() {
 
-//        getLinksFromStartingPageToCategories()
-////        println("3) --------------------------------------------")
-//        getLinksFromCategoriesToPhotos()
-////        println("4) --------------------------------------------")
-//        getTagsFromPhotos()
-//        tags.forEach(System.out::println)
-//
-//        removeDuplicatesFromTagsFile()
-        fileToPojos()
-        print("done")
+/*        getLinksFromStartingPageToCategories()
+//        println("3) --------------------------------------------")
+        getLinksFromCategoriesToPhotos()
+//        println("4) --------------------------------------------")
+        getTagsFromPhotos()
+        tags.forEach(System.out::println)
+
+        removeDuplicatesFromTagsFile()
+//        fileToPojos()
+        println("done")*/
 
 
     }
 
     private fun getLinksFromStartingPageToCategories() {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
-        val url = "https://picjumbo.com/";
+        val url = "https://picjumbo.com/"
         val startString = "https://picjumbo.com/free-stock-photos/"
 
         linksToCategories = givenTheUrlAndStartStringReturnListWithLinks(url, startString)
@@ -54,7 +55,7 @@ class WebscraperTagsFromPicJumbo {
                 links.add(link.replace(" ", "-")) //ToDo: Replace Neu hinzugefügt
             }
         }
-        return links;
+        return links
     }
 
     private fun givenTheUrlGetAnchors(url: String): Elements {
@@ -63,17 +64,25 @@ class WebscraperTagsFromPicJumbo {
         return doc.select("a")
     }
 
-    private fun givenTheUrlGetItempropAnchor(url: String): Elements {
+    private fun givenTheUrlGetItempropAnchor(url: String): Elements? {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
+        val jsoupConnection: Connection = Jsoup.connect(url).ignoreHttpErrors(true)
+        val jsoupResponse: Connection.Response = jsoupConnection.timeout(60000000).execute()
+        var jsoupDocument: Document? = null;
+        val jsoupElements: Elements = Elements()
 
-        val doc = Jsoup.connect(url).timeout(15000).get()
-        return doc.select("span a[title]")
+        if (jsoupResponse.statusCode() == 200) {
+            jsoupDocument = jsoupConnection.timeout(60000000).get()
+            return jsoupDocument.select("span a[title]")
+        }
+//        val doc = Jsoup.connect(url).timeout(15000).get()
+        return jsoupElements
     }
 
     private fun getLinksFromCategoriesToPhotos() {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
 
-        val startString = "https://picjumbo.com/";
+        val startString = "https://picjumbo.com/"
 
         // We are deleting any duplicate entries from our list by creating a set and writing its values to the list
         val set: Set<String> = HashSet<String>(linksToCategories)
@@ -84,7 +93,12 @@ class WebscraperTagsFromPicJumbo {
         for (urlToCategory in linksToCategories) {
             println("##################################################")
             println("Category: $urlToCategory")
-            if (urlToCategory.contains("abstract")) { //deleteLater
+            if (urlToCategory.contains("backgrounds")
+                || urlToCategory.contains("hd-iphone-wallpapers")
+//                || urlToCategory.contains("animals")
+//                || urlToCategory.contains("flatlay")
+//                || urlToCategory.contains("room-for-text")
+                || urlToCategory.contains("vintage")) { //deleteLater to get all tags
                 getCategoryPagination(urlToCategory, startString)
             }
 
@@ -94,7 +108,7 @@ class WebscraperTagsFromPicJumbo {
     private fun getTagsFromPhotos() {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
 
-        val url = "https://picjumbo.com/";
+        val url = "https://picjumbo.com/"
         val startString = "https://picjumbo.com/free-photos/"
 
         val tagsFile = initialiseFile()
@@ -106,10 +120,12 @@ class WebscraperTagsFromPicJumbo {
 //            var tagsForPhotoPreview: MutableList<String> = givenTheUrlAndStartStringReturnListWithLinks(photoPreview, startString)
             var tagsForPhotoPreview: MutableList<String> = mutableListOf()
 
-            for (anchor in givenTheUrlGetItempropAnchor(photoPreview)) {
-                val link = anchor.attr("abs:href")
-                if (link.startsWith(startString)) {
-                    tagsForPhotoPreview.add(link)
+            if (null != givenTheUrlGetItempropAnchor(photoPreview)) {
+                for (anchor in givenTheUrlGetItempropAnchor(photoPreview)!!) {
+                    val link = anchor.attr("abs:href")
+                    if (link.startsWith(startString)) {
+                        tagsForPhotoPreview.add(link)
+                    }
                 }
             }
 
@@ -126,7 +142,6 @@ class WebscraperTagsFromPicJumbo {
         println(" ##########################" + object : Any() {}.javaClass.enclosingMethod.name + "########################## ")
 
         val tagsFile = initialiseFile()
-
 
         for (photoPreview in linksToPhotoPreviews) {
             println("7) PhotoPreview Link: $photoPreview")
@@ -198,7 +213,7 @@ class WebscraperTagsFromPicJumbo {
 
 
     private fun removeDuplicatesFromTagsFile() {
-        var fileName = file;
+        var fileName = file
         val sc = Scanner(File(fileName))
         var input: String? = null
         val writer = FileWriter(fileMinimized)
@@ -218,11 +233,11 @@ class WebscraperTagsFromPicJumbo {
         writer.flush()
         writer.close()
         sc.close()
-        println("Contents added............")
+        println("File: tagsWithoutDuplicated successfully created and processed............")
     }
 
-    public fun fileToPojos(): Pair<MutableList<MutableList<String>>, MutableList<MutableList<String>>> {
-        var fileName = fileMinimized;
+    fun fileToLoLPair(): Pair<MutableList<MutableList<String>>, MutableList<MutableList<String>>> {
+        val fileName = fileMinimized
         val sc = Scanner(File(fileName))
 
         // for every row

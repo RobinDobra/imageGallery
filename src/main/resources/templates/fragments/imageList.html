@@ -27,7 +27,8 @@
         <!-- Filter -->
         <div id="filterControls" class="text-center mb-5 mb-md-7">
             <a class="cbp-filter-item cbp-filter-item-active btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter="*">All</a>
-            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".illustration">Illustration</a>
+            <!--            <a class="cbp-filter-item cbp-filter-item-active btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".nature">nature</a>-->
+            <!--            <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".abstract">Abstract</a>-->
             <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".animals">animals</a>
             <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".business">business</a>
             <a class="cbp-filter-item btn btn-xs btn-soft-secondary btn-pill py-2 px-3 m-1" href="javascript:;" data-filter=".fashion">fashion</a>
@@ -57,40 +58,25 @@
                    }'>
 
             <!--             own items -->
-            <th:block th:each="tagString, iter : ${tagsLoL}">
-                <!--                <div class="cbp-item" th:classappend="${tagString}">-->
-                <!--                    <a class="cbp-caption">-->
-                <!--                        <div class="overflow-hidden rounded-lg">-->
-                <!--                            <div class="cbp-caption-defaultWrap">-->
-                <!--                                <img class="rounded-lg" data-toggle="modal" data-target="#myModal" th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${namesLoL[iter.index][0]})}" alt="Image Description">-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                        <div class="p-4">-->
-                <!--                            <span class="d-block small text-body font-weight-bold text-cap">Product</span>-->
-                <!--                            <span class="d-block h3 mb-0">Canvas Schedule</span>-->
-                <!--                        </div>-->
-                <!--                    </a>-->
-                <!--                </div>-->
+            <th:block th:each="imageObject, iter : ${imageObjects}">
+                <div class="cbp-item" th:classappend="${#strings.replace(#strings.replace(#strings.replace(imageObject.tags.toString(),',',''), '[',''),']','')}">
+                    <a class="cbp-caption">
+                        <div class="overflow-hidden">  <!-- <div class="overflow-hidden rounded-lg">  -->
+                            <div class="cbp-caption-defaultWrap">
+                                <a th:attr="data-imagename=${imageObject.filename}" title="Add this item" class="open-ShowImageModal" href="#myModal">
+                                    <img th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${imageObject.filename})}" alt="Image Description" loading="lazy">
+                                    <!--  class="rounded-lg" -->
 
-
-            </th:block>
-
-
-            <!-- Item -->
-            <div class="cbp-item product branding spring">
-                <a class="cbp-caption">
-                    <div class="overflow-hidden rounded-lg">
-                        <div class="cbp-caption-defaultWrap">
-                            <img class="rounded-lg" data-imagename="imageNameVar" data-toggle="modal" data-target="#imageModalId" src="../img/400x500/img21.jpg" alt="Image Description">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="p-4">
-                        <span class="d-block small text-body font-weight-bold text-cap">Branding</span>
-                        <span class="d-block h3 mb-0">Larq</span>
-                    </div>
-                </a>
-            </div>
-            <!-- End Item -->
+                        <!--                                        <div class="p-4">-->
+                        <!--                                            <span class="d-block small text-body font-weight-bold text-cap">Product</span>-->
+                        <!--                                            <span class="d-block h3 mb-0">Canvas Schedule</span>-->
+                        <!--                                        </div>-->
+                    </a>
+                </div>
+            </th:block>
 
 
             <!-- Item -->
@@ -112,8 +98,27 @@
             <!-- End Item -->
 
         </div>
+        <nav aria-label="Page navigation example" style="display: flex; justify-content: center">
+            <ul th:if="${imageObjects.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+                <li class="page-item">
+<!--                                           th:data-imageobjects="${imageObjects}"
+-->
+                    <a class="page-link"
+                       th:data-imageobjectssize="${imageObjects.size}"
+                       th:data-pagenumber="${pageNumber}"
+                       th:onclick="c(this.getAttribute('data-imageobjectssize'), this.getAttribute('data-pagenumber'))"
+
+                    th:text="${pageNumber}">${pageNumber}</a></li>
+            </ul>
+<!--                                           th:onclick="tryMe(this.getAttribute('data-student') + this.getAttribute('data-pagenumber'));"
+-->
+<!--            th:onclick="'tryMe(\''+${imageObjects}+ '\',\''+${pageNumber}+'\');'"-->
+            <!-- th:href="@{/ (size=${imageObjects.size}, page=${pageNumber})}"-->
+        </nav>
+
     </div>
 </main>
+
 
 <!-- Edit Card Modal -->
 <div class="modal fade" id="myModal" data-imagename="123" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editCardModalTitle">
@@ -133,7 +138,8 @@
             </div>
             <!-- End Modal Header -->
             <!--                <img th:src="@{../images/Eating-Pizza.jpg}" class="img-responsive">333-->
-            <img src="" alt="" id="myImage" class="img-responsive"> 33333333
+            <!--            <img src="" alt="" id="myImage" class="img-responsive"> 33333333-->
+            <img src="" alt="" id="imagename" class="img-responsive" loading="lazy">
             <div class="modal-footer">
                 <button type="button" id="modal-download" class="btn btn-primary block">Download for free</button>
             </div>
@@ -143,45 +149,50 @@
 <!--End Edit Card Modal-->
 
 
-<a data-imagename="ISBN" title="Add this item" class="open-ShowImageModal btn btn-primary" href="#imageModalId">test</a>
-
-<div class="modal fade" id="imageModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" name="abc"  value=""/>
-                <img src="" alt="" id="imagename">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
 <link rel="stylesheet" href="../css/theme.min.css">
 <link rel="stylesheet" href="../css/customCSS.css">
 
 <script>
 
+
+
+
+    $(document).ready(function () {
+        $(document).on('click', 'a.cbp-filter-item-active', function (e) {
+            console.log("Hello")
+            const tag = document.getElementsByClassName("cbp-filter-item-active")[0].dataset.filter.substring(1);
+            //href link zur page
+            window.location.href = "http://localhost:8080/" + tag
+        });
+    });
+
+    // Modal popup
     $(document).on("click", ".open-ShowImageModal", function (e) {
-
         e.preventDefault();
-
         var _self = $(this);
-
         var imagename = _self.data('imagename');
-        // $("#imagename").val("../images/" + imagename);
-        document.getElementById("imagename").src = "../img/750x750/" + imagename;
-        // $("#imagename").attr(src, "../images" + imagename);
-
+        document.getElementById("imagename").src = "../images/" + imagename + ".jpg";
         $(_self.attr('href')).modal('show');
+    });
+
+    // Pagination click
+    function c(imageobjectssize, pagenumber) {
+        console.log("Pagenumber:  " + pagenumber)
+        console.log("ImageobjectsSize: " + imageobjectssize)
+        const tag = document.getElementsByClassName("cbp-filter-item-active")[0].dataset.filter.substring(1);
+        console.log("Tag:" + tag)
+        //href link zur page
+        // window.location.href = "http://localhost:8080/" + tag + "?size= " + imageobjectssize + "&page=" + pagenumber
+        currentURL = window.location.href
+        var currentURLWithTag =currentURL.substring(0, currentURL.indexOf("?size"))
+        console.log("111:" + currentURLWithTag)
+        window.location.href = currentURLWithTag +  "?size= " + imageobjectssize + "&page=" + pagenumber
+    }
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            // ajax call get data from server and append to the div
+        }
     });
 
 </script>

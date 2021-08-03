@@ -1,9 +1,9 @@
-1) Pagination
+0) Mindestens noch die Tags backgrounds, iphone wallpapers, traveling, animals, flatlay,spacefortext,vintage herunterladen
+
+1) Anstelle einer Riesenliste am Anfang einfach nur ein "curated" mit 50 Einträgen oder so
+
 
 --------------------------------------------------
 
-0) Bilder mit IrfanView zu Thumbnails konvertieren
-1) Ich habe jetzt die Liste mit allen Namen und allen Tags von den ImageController an die ImageList übergeben. Jetzt muss ich in der Imagelist über die List<List<Strings> gehen und für jedes Bild die Tags raussuchen
 2) Shopping Funktion einbauen, damit Bilder auch gekauft werden können
-3)
 4) Quelle der Bilder mit speichern

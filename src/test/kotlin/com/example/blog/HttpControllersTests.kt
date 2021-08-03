@@ -1,3 +1,4 @@
+/*
 package com.example.blog
 
 import com.ninjasquad.springmockk.MockkBean
@@ -47,3 +48,4 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 				.andExpect(jsonPath("\$.[1].login").value(smaldini.login))
 	}
 }
+*/
