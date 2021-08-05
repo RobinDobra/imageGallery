@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping
 class TermsController {
 
     @GetMapping("/terms")
-    fun showImage(): String {
-        return "terms"
+    fun showTermsAndConditions(): String {
+        return "termsandconditions"
     }
 
 }
