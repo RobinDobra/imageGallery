@@ -8,7 +8,10 @@ plugins {
 	kotlin("plugin.allopen") version "1.3.61"
 	kotlin("plugin.jpa") version "1.3.61"
 	kotlin("kapt") version "1.3.61"
+	war
 }
+
+
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"

@@ -93,12 +93,13 @@ class WebscraperTagsFromPicJumbo {
         for (urlToCategory in linksToCategories) {
             println("##################################################")
             println("Category: $urlToCategory")
-            if (urlToCategory.contains("backgrounds")
-                || urlToCategory.contains("hd-iphone-wallpapers")
-//                || urlToCategory.contains("animals")
-//                || urlToCategory.contains("flatlay")
-//                || urlToCategory.contains("room-for-text")
-                || urlToCategory.contains("vintage")) { //deleteLater to get all tags
+            if (urlToCategory.contains("holidays")
+                || urlToCategory.contains("sunlights")
+                || urlToCategory.contains("snow-winter")
+                || urlToCategory.contains("transportation")
+                || urlToCategory.contains("vertical")
+//                || urlToCategory.contains("vintage")
+            ) { //deleteLater to get all tags
                 getCategoryPagination(urlToCategory, startString)
             }
 

@@ -29,7 +29,7 @@ class ImageController(val imageTagRepository: ImageTagRepository) {
         model["tagsLoL"] = tagsLoL.stream().map { mutableList ->
             mutableList.joinToString(separator = " ").replace("[", "").replace("]", "").replace(",", "")
         }.toList()
-        return "portfolio-own"
+        return "index"
     }
 
     @RequestMapping(path = ["/"])
@@ -47,7 +47,7 @@ class ImageController(val imageTagRepository: ImageTagRepository) {
                 .collect(Collectors.toList())
             model.addAttribute("pageNumbers", pageNumbers)
         }
-        return "portfolio-own"
+        return "index"
     }
 
     @RequestMapping(path = ["/{tag}"])
@@ -66,6 +66,6 @@ class ImageController(val imageTagRepository: ImageTagRepository) {
                 .collect(Collectors.toList())
             model.addAttribute("pageNumbers", pageNumbers)
         }
-        return "portfolio-own"
+        return "index"
     }
 }
