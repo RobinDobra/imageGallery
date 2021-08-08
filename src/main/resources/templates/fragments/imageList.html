@@ -159,6 +159,8 @@
             console.log("Hello")
             const tag = document.getElementsByClassName("cbp-filter-item-active")[0].dataset.filter.substring(1);
             //href link zur page
+            // currentURL = window.location.href
+            // var currentURLWithTag =currentURL.substring(0, currentURL.indexOf("?size"))
             window.location.href = "http://localhost:8080/" + tag
         });
     });

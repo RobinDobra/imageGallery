@@ -11,7 +11,8 @@ import java.util.*
 
 class WebscraperTagsFromPicJumbo {
     private var file = "tags.txt"
-    private var fileMinimized = "tagsWithoutDuplicates.txt"
+    private var fileMinimized = this::class.java.classLoader.getResource("/tagsWithoutDuplicates.txt").readText()
+//    private var fileMinimized = javaClass.classLoader.getResource("tagsWithoutDuplicates.txt").path
     private var linksToCategories: MutableList<String> = mutableListOf()
     private var linksToPhotoPreviews: MutableList<String> = mutableListOf()
     private var tags: MutableList<String> = mutableListOf()
