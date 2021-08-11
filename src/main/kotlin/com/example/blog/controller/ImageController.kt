@@ -1,6 +1,9 @@
-package com.example.blog
+package com.example.blog.controller
 
 
+import com.example.blog.Image
+import com.example.blog.ImageTagRepository
+import com.example.blog.utility.WebscraperTagsFromPicJumbo
 import lombok.RequiredArgsConstructor
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -35,7 +38,7 @@ class ImageController(val imageTagRepository: ImageTagRepository) {
     @RequestMapping(path = ["/"])
     fun mainPageWorkflow(model: Model, @RequestParam("page") page: Optional<Int>, @RequestParam("size") size: Optional<Int>): String {
         val currentPage = page.orElse(1)
-        val pageSize = size.orElse(1)
+        val pageSize = size.orElse(2)
         val imageTagPage: Page<Image> = imageTagRepository.findAll(PageRequest.of(currentPage - 1, pageSize))
 
         model["imageObjects"] = imageTagPage

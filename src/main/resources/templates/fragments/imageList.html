@@ -64,7 +64,7 @@
                         <div class="overflow-hidden">  <!-- <div class="overflow-hidden rounded-lg">  -->
                             <div class="cbp-caption-defaultWrap">
                                 <a th:attr="data-imagename=${imageObject.filename}" title="Add this item" class="open-ShowImageModal" href="#myModal">
-                                    <img th:src="@{../thumbnails_400x500/{imageName}.jpg (imageName=${imageObject.filename})}" alt="Image Description" loading="lazy">
+                                    <img src="" th:src="@{../thumbnails/{imageName}.jpg (imageName=${imageObject.filename})}" alt="Image Description" loading="lazy">
                                     <!--  class="rounded-lg" -->
 
                                 </a>
@@ -156,12 +156,8 @@
 
     $(document).ready(function () {
         $(document).on('click', 'a.cbp-filter-item-active', function (e) {
-            console.log("Hello")
             const tag = document.getElementsByClassName("cbp-filter-item-active")[0].dataset.filter.substring(1);
-            //href link zur page
-            // currentURL = window.location.href
-            // var currentURLWithTag =currentURL.substring(0, currentURL.indexOf("?size"))
-            window.location.href = "http://localhost:8080/" + tag
+            window.location.href = window.location.origin + "/" + tag
         });
     });
 
@@ -170,18 +166,16 @@
         e.preventDefault();
         var _self = $(this);
         var imagename = _self.data('imagename');
+        console.log("x")
         document.getElementById("imagename").src = "../images/" + imagename + ".jpg";
+        console.log("y")
         $(_self.attr('href')).modal('show');
+        console.log("z")
     });
 
     // Pagination click
     function c(imageobjectssize, pagenumber) {
-        console.log("Pagenumber:  " + pagenumber)
-        console.log("ImageobjectsSize: " + imageobjectssize)
         const tag = document.getElementsByClassName("cbp-filter-item-active")[0].dataset.filter.substring(1);
-        console.log("Tag:" + tag)
-        //href link zur page
-        // window.location.href = "http://localhost:8080/" + tag + "?size= " + imageobjectssize + "&page=" + pagenumber
         currentURL = window.location.href
         var currentURLWithTag =currentURL.substring(0, currentURL.indexOf("?size"))
         console.log("111:" + currentURLWithTag)

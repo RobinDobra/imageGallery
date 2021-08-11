@@ -21,6 +21,7 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
 	implementation("org.jsoup:jsoup:1.7.2")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -30,9 +31,11 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
-//	testImplementation("com.h2database:h2:1.4.200")
-//	implementation("org.springframework.data:spring-data-commons:2.5.3")
+//	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+	implementation("software.amazon.awssdk:bom:2.17.14")
+	implementation("software.amazon.awssdk:s3:2.17.14")
+//	implementation("software.amazon.awssdk:aws-sdk-java:2.17.12")
+
 	runtimeOnly("com.h2database:h2")
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 	compileOnly("org.projectlombok:lombok:1.18.20")

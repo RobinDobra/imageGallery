@@ -1,24 +1,29 @@
-package com.example.blog
+package com.example.blog.utility
 
+import com.example.blog.configuration.AmazonS3Client
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import org.springframework.stereotype.Service
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.GetObjectRequest
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.util.*
 
-class WebscraperTagsFromPicJumbo {
+@Service
+class WebscraperTagsFromPicJumbo() {
     private var file = "tags.txt"
-    private var fileMinimized = this::class.java.classLoader.getResource("/tagsWithoutDuplicates.txt").readText()
-//    private var fileMinimized = javaClass.classLoader.getResource("tagsWithoutDuplicates.txt").path
+    private var fileMinimized = "tagsWithoutDuplicates.txt"
     private var linksToCategories: MutableList<String> = mutableListOf()
     private var linksToPhotoPreviews: MutableList<String> = mutableListOf()
     private var tags: MutableList<String> = mutableListOf()
 
     private val finalNameList: MutableList<MutableList<String>> = mutableListOf()
     private val finalTagList: MutableList<MutableList<String>> = mutableListOf()
+
 
 
     fun init() {
@@ -240,8 +245,20 @@ class WebscraperTagsFromPicJumbo {
 
     fun fileToLoLPair(): Pair<MutableList<MutableList<String>>, MutableList<MutableList<String>>> {
         val fileName = fileMinimized
-        val sc = Scanner(File(fileName))
+        println("-1 ################################################################################)")
+        val s3Client: S3Client = AmazonS3Client().getS3Client()
 
+        val bucketName = "myfirsts3bucketrd"
+        val key = "tagsWithoutDuplicates.txt"
+        println("0 ################################################################################)")
+        val getObjectRequest = GetObjectRequest.builder().bucket(bucketName).key(key).build()
+        println("0.5 ################################################################################)")
+        val responseInput = s3Client.getObject(getObjectRequest)
+        println("1 ################################################################################)")
+        File(fileMinimized).writeBytes(responseInput.readBytes())
+        println("2 ################################################################################)")
+        val sc = Scanner(File(fileName))
+        println("3 ################################################################################)")
         // for every row
         while (sc.hasNextLine()) {
             val lineFromFile = sc.nextLine()
@@ -253,8 +270,6 @@ class WebscraperTagsFromPicJumbo {
                 val imageTagsFromFile = lineFromFile.substring(openingSquareBracketIndex, closingSquareBracketIndex)
                 // imageTags per Row (arraylist)
                 val imageTagsFromFileList: MutableList<String> = imageTagsFromFile.split(", ").toMutableList()
-                // imageName per Row + imageTags per Row (arraylist)
-//                val fileNameAndTagsAsList: MutableList<String> = mutableListOf(imageNameFromFile)
                 var previousTag = ""
 
                 with(imageTagsFromFileList.listIterator()) {
@@ -265,17 +280,12 @@ class WebscraperTagsFromPicJumbo {
                         previousTag = it
                     }
                 }
-
                 finalNameList.add(mutableListOf(imageNameFromFile))
                 finalTagList.add(imageTagsFromFileList)
-//                fileNameAndTagsAsList.addAll(imageTagsFromFileList)
-//                tagManagerList.add(fileNameAndTagsAsList)
+
             }
-//            println("test")
         }
-//        println("test")
         sc.close()
-//        return  tagManagerList
         return Pair(finalNameList, finalTagList)
     }
 

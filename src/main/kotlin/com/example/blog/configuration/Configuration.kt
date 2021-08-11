@@ -1,5 +1,6 @@
 package com.example.blog
 
+import com.example.blog.utility.WebscraperTagsFromPicJumbo
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
