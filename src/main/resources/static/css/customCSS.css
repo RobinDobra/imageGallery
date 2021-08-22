@@ -1,0 +1,32 @@
+.modal-content {
+    background-color: inherit;
+}
+
+@media (min-width: 800px) {
+    .modal-dialog.modal-dialog-centered {
+        max-width: 60%;
+        max-height: 60%;
+    }
+}
+
+.modal-body {
+    padding: 0;
+}
+
+#modal-download {
+    width: 100%
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+.downloadClass:hover {
+    background-color: #777777;
+}
+
+html {
+    /*overflow: hidden;*/
+}

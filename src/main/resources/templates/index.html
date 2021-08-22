@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- ========== HEAD ========== -->
+
+  <!-- Title -->
+  <title>Pixelheaven.org</title>
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Author: R. Dobra, ImageGallery, Pixelheaven.org">
+  <div th:include="fragments/head"></div>
+
+  <!-- ========== END HEAD ========== -->
+
+</head>
+<body>
+
+  <!-- ========== HEAD ========== -->
+  <div th:include="fragments/header"></div>
+  <!-- ========== END HEAD ========== -->
+
+  <!-- ========== MAIN ========== -->
+  <div th:insert="fragments/imageList"></div>
+  <!-- ========== END MAIN ========== -->
+
+  <!-- ========== FOOTER ========== -->
+  <div th:include="fragments/footer"></div>
+  <!-- ========== END FOOTER ========== -->
+
+  <!-- ========== SECONDARY CONTENTS ========== -->
+  <div th:include="fragments/secondaryContents"></div>
+  <!-- ========== END SECONDARY CONTENTS ========== -->
+
+  <!-- Go to Top -->
+  <div th:include="fragments/toTheTop"></div>
+  <!-- End Go to Top -->
+
+  <!-- JS Imports  -->
+  <div th:include="fragments/javascriptImports"></div>
+  <!-- END JS Imports  -->
+
+</body>
+</html>
